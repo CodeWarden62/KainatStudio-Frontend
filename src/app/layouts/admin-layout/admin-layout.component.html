@@ -1,0 +1,10 @@
+
+<div class="content">
+  <app-navbar (toggleSideNav)="isSideNavOpen=!isSideNavOpen"></app-navbar>
+
+<app-sidebar [isSideNavOpen]="isSideNavOpen" >
+  <div class="safe-area">
+  <router-outlet></router-outlet>
+</div>
+</app-sidebar>
+</div>
