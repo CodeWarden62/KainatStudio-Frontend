@@ -1,0 +1,16 @@
+* {
+  background-color: var(--public-background-color);
+}
+.gallery-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  app-gallery-card {
+    flex: 0 0 33.33333%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 33.3333%;
+    max-width: 33.33333%;
+  }
+}

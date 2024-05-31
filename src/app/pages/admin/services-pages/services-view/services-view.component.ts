@@ -5,7 +5,7 @@ import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { IServiceModel, dummyServices } from '../services.model';
 import { RouterModule } from '@angular/router';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 import { ServicesService } from '../services.service';
 
 @Component({
@@ -14,6 +14,7 @@ import { ServicesService } from '../services.service';
   imports: [
     MatTableModule,
     MatSortModule,
+    MatButtonModule,
     MatIcon,
     MatPaginator,
     RouterModule,
