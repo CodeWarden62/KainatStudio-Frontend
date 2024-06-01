@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  padding: 0px 8px;
+  height: 92px;
+  background: var(--public-background-color);
+  align-items: center;
+  justify-content: space-between;
+  .sitename {
+    font-size: 32px;
+    color: var(--public-primary-color);
+  }
+  .nav-list {
+    a {
+      padding: 10px 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+      text-decoration: none !important;
+      &:hover {
+        color: var(--public-hover-color);
+      }
+      &.active {
+        color: var(--public-hover-color);
+      }
+    }
+  }
+}
