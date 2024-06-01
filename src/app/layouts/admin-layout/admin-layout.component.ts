@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../../components/admin/navbar/navbar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
-import { SidebarComponent } from '../../components/admin/sidebar/sidebar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-admin-layout',
