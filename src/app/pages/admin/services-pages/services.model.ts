@@ -1,94 +1,108 @@
+export enum ServicePropNames{
+  Id = 'Id',
+  Name = 'Name',
+  Thumbnail = 'Thumbnail',
+  Description = 'Description',
+  MinPrice = 'MinPrice',
+  MaxPrice = 'MaxPrice',
+  SortOrder = 'SortOrder',
+  ActiveFlag = 'ActiveFlag'
+}
+
 export interface IServiceModel{
-  id: number;
-  name: string;
-  minPrice: number;
-  maxPrice: number;
-  status: 'Active'|'Inactive';  // active/inactive
-  thumbnail: string; //url
+  [ServicePropNames.Id]: number;
+  [ServicePropNames.Name]: string;
+  [ServicePropNames.Thumbnail]: string;
+  [ServicePropNames.Description]: string;
+  [ServicePropNames.MinPrice]: number;
+  [ServicePropNames.MaxPrice]: number;
+  [ServicePropNames.SortOrder]: number;
+  [ServicePropNames.ActiveFlag]: boolean;
 }
 
 export const getDefaultServiceModel = (): IServiceModel => {
   return {
-    id: 0,
-    name: '',
-    minPrice: 0,
-    maxPrice: 0,
-    status: 'Active',
-    thumbnail: ''
+    Id: 0,
+    Name: '',
+    Thumbnail: '',
+    Description: '',
+    MinPrice: 0,
+    MaxPrice: 0,
+    SortOrder: 0,
+    ActiveFlag: true
   };
 }
 
 
 export const dummyServices:IServiceModel[]=[
   {
-    id:1,
-    name:'Service 1',
-    thumbnail:'https://via.placeholder.com/150',
-    minPrice:10,
-    maxPrice:20,
-    status:'Active'
+    Id: 1,
+    Name: 'Service 1',
+    Thumbnail: 'https://via.placeholder.com/150',
+    Description: 'Service 1 Description',
+    MinPrice: 100,
+    MaxPrice: 200,
+    SortOrder: 1,
+    ActiveFlag: true
   },
   {
-    id:2,
-    name:'Service 2',
-    thumbnail:'https://via.placeholder.com/150',
-
-    minPrice:10,
-    maxPrice:20,
-    status:'Active'
+    Id: 2,
+    Name: 'Service 2',
+    Thumbnail: 'https://via.placeholder.com/150',
+    Description: 'Service 2 Description',
+    MinPrice: 200,
+    MaxPrice: 300,
+    SortOrder: 2,
+    ActiveFlag: true
   },
   {
-    id:3,
-    name:'Service 3',
-    thumbnail:'https://via.placeholder.com/150',
-
-    minPrice:10,
-    maxPrice:20,
-    status:'Active'
+    Id: 3,
+    Name: 'Service 3',
+    Thumbnail: 'https://via.placeholder.com/150',
+    Description: 'Service 3 Description',
+    MinPrice: 300,
+    MaxPrice: 400,
+    SortOrder: 3,
+    ActiveFlag: true
   },
   {
-    id:4,
-    name:'Service 4',
-    thumbnail:'https://via.placeholder.com/150',
-
-    minPrice:10,
-    maxPrice:20,
-    status:'Active'
+    Id: 4,
+    Name: 'Service 4',
+    Thumbnail: 'https://via.placeholder.com/150',
+    Description: 'Service 4 Description',
+    MinPrice: 400,
+    MaxPrice: 500,
+    SortOrder: 4,
+    ActiveFlag: true
   },
   {
-    id:1,
-    name:'Service 1',
-    thumbnail:'https://via.placeholder.com/150',
-
-    minPrice:10,
-    maxPrice:20,
-    status:'Active'
+    Id: 5,
+    Name: 'Service 5',
+    Thumbnail: 'https://via.placeholder.com/150',
+    Description: 'Service 5 Description',
+    MinPrice: 500,
+    MaxPrice: 600,
+    SortOrder: 5,
+    ActiveFlag: true
   },
   {
-    id:2,
-    name:'Service 2',
-    thumbnail:'https://via.placeholder.com/150',
-
-    minPrice:10,
-    maxPrice:20,
-    status:'Active'
+    Id: 6,
+    Name: 'Service 6',
+    Thumbnail: 'https://via.placeholder.com/150',
+    Description: 'Service 6 Description',
+    MinPrice: 600,
+    MaxPrice: 700,
+    SortOrder: 6,
+    ActiveFlag: true
   },
   {
-    id:3,
-    name:'Service 3',
-    thumbnail:'https://via.placeholder.com/150',
-
-    minPrice:10,
-    maxPrice:20,
-    status:'Active'
-  },
-  {
-    id:4,
-    name:'Service 4',
-    thumbnail:'https://via.placeholder.com/150',
-
-    minPrice:10,
-    maxPrice:20,
-    status:'Active'
+    Id: 7,
+    Name: 'Service 7',
+    Thumbnail: 'https://via.placeholder.com/150',
+    Description: 'Service 7 Description',
+    MinPrice: 700,
+    MaxPrice: 800,
+    SortOrder: 7,
+    ActiveFlag: true
   }
 ];

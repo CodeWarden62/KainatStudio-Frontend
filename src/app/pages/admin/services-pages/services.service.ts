@@ -9,20 +9,20 @@ export class ServicesService {
   constructor() { }
 
   getService(id:number){
-    return this.services.find(s => s.id === id);
+    return this.services.find(s => s.Id === id);
   }
   addService(service:IServiceModel){
-    service.id = Math.random() + Date.now();
+    service.Id = Math.random() + Date.now();
     this.services.push(service);
   }
 
   updateService(service:IServiceModel){
-    const index = this.services.findIndex(s => s.id === service.id);
+    const index = this.services.findIndex(s => s.Id === service.Id);
     this.services[index] = service;
   }
 
   deleteService(serviceId:number){
-    this.services = this.services.filter(s => s.id !== serviceId);
+    this.services = this.services.filter(s => s.Id !== serviceId);
   }
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IServiceModel, dummyServices, getDefaultServiceModel } from '../services.model';
+import { IServiceModel, ServicePropNames, dummyServices, getDefaultServiceModel } from '../services.model';
 import {
   FormControl,
   FormGroup,
@@ -39,20 +39,19 @@ import { ServicesService } from '../services.service';
 export class ServicesFormComponent implements OnInit {
   service: IServiceModel = getDefaultServiceModel();
   serviceForm = new FormGroup({
-    id: new FormControl<number>(0),
-    name: new FormControl<string>('',{
+    [ServicePropNames.Name]: new FormControl<string>('',{
       validators: [Validators.required, Validators.minLength(3), Validators.maxLength(50)]
     }),
-    minPrice: new FormControl<number|null>( null, {
+    [ServicePropNames.MinPrice]: new FormControl<number|null>( null, {
       validators: [Validators.required, Validators.min(0), Validators.nullValidator]
     }),
-    maxPrice: new FormControl<number|null>(null, {
+    [ServicePropNames.MaxPrice]: new FormControl<number|null>(null, {
       validators: [Validators.required, Validators.min(0),Validators.nullValidator]
     }),
-    status: new FormControl<'Active'|'Inactive'>('Active', {
+    [ServicePropNames.ActiveFlag]: new FormControl<boolean>(true, {
       validators: [Validators.required]
     }),
-    thumbnail: new FormControl<string>('', {
+    [ServicePropNames.Thumbnail]: new FormControl<string>('', {
       validators: [Validators.required]
     })
   });
@@ -79,7 +78,7 @@ export class ServicesFormComponent implements OnInit {
     console.log(this.serviceForm.value);
     if(this.serviceForm.valid){
       this.service = this.formGroupToServiceModel();
-      if(this.service.id === 0){
+      if(this.service.Id === 0){
         this.servicesService.addService(this.service);
       }else{
         this.servicesService.updateService(this.service);
@@ -90,14 +89,6 @@ export class ServicesFormComponent implements OnInit {
   }
 
   formGroupToServiceModel(): IServiceModel {
-    return {
-      id: this.serviceForm.get('id')?.value??Math.random()+Date.now(),
-      name: this.serviceForm.get('name')?.value??'',
-      minPrice: this.serviceForm.get('minPrice')?.value??0,
-      maxPrice: this.serviceForm.get('maxPrice')?.value??0,
-      status: this.serviceForm.get('status')?.value??'Active',
-      thumbnail: this.serviceForm.get('thumbnail')?.value??''
-
-    };
+    return getDefaultServiceModel();
   }
 }
