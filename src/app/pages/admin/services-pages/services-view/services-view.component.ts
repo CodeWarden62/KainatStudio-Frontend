@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { ServicesService } from '../services.service';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { TypeSafeMatCellDef } from '../../../../directives/type-safe-mate-cell-def.directive';
 
 enum EServiceTableColumns {
   Name = ServicePropNames.Name,
@@ -29,12 +30,13 @@ enum EServiceTableColumns {
     MatPaginator,
     RouterModule,
     MatButton,
-    MatSlideToggle
+    MatSlideToggle,
+    TypeSafeMatCellDef
   ],
   templateUrl: './services-view.component.html',
   styleUrl: './services-view.component.scss',
 })
-export class ServicesViewComponent implements AfterViewInit {
+export class ServicesViewComponent implements AfterViewInit,OnInit {
   dataSource: MatTableDataSource<IServiceModel>;
   displayedColumns: string[] =[
     EServiceTableColumns.Name,
@@ -54,6 +56,11 @@ export class ServicesViewComponent implements AfterViewInit {
     private servicesService: ServicesService,
   ){
     this.dataSource = new MatTableDataSource(this.servicesService.services);
+  }
+  ngOnInit(): void {
+    this.servicesService.getServices().subscribe(res=>{
+      this.dataSource = new MatTableDataSource(this.servicesService.services);
+    });
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

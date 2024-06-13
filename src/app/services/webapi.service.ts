@@ -1,47 +1,60 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../constants/app.constants';
-import { ApiConstants, ControllerNames } from '../constants/api.constants';
+import { environment } from '../constants/app.constants';import { Observable, catchError, tap } from 'rxjs';
+import { LoaderService } from '../components/loader/loader.service';
+import { AuthService } from './auth.service';
+import { StorageService } from './storage.service';
+import { StorageConstants } from '../constants/storage.constants';
+;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WebapiService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private loader: LoaderService,
+    private storage:StorageService
   ) { }
 
-  get(controllerName:ControllerNames){
-    let url = environment.apiUrl + ApiConstants.controllers[controllerName].basePath;
-    return this.http.get(url);
+  getHeaders(){
+    const token= this.storage.get(StorageConstants.Token,'');
+    const headers= new HttpHeaders({
+      'Content-Type': 'application/json',
+      "authorization": "Bearer "+token
+    });
+    return headers;
   }
-  getById(controllerName:ControllerNames,id:number){
-    let url = environment.apiUrl + ApiConstants.controllers[controllerName].basePath + ApiConstants.operations.id + '/' + id;
-    return this.http.get(url);
+
+  withLoaderHandling(withLoader:boolean,apiCall:Observable<any>){
+    if(!withLoader){
+      return apiCall;
+    }
+    this.loader.showLoader();
+    return apiCall.pipe(
+      tap(() => this.loader.hideLoader()),
+      catchError(err => {
+        this.loader.hideLoader();
+        throw err;
+      })
+    )
   }
-  create(controllerName:ControllerNames,data:any){
-    let url = environment.apiUrl + ApiConstants.controllers[controllerName].basePath + ApiConstants.operations.create;
-    return this.http.post(url,data);
+
+  get(path:string, withLoader=false){
+    let url = environment.apiUrl +path;
+    return this.withLoaderHandling(withLoader,this.http.get(url, {headers:this.getHeaders()}));
   }
-  update(controllerName:ControllerNames,data:any){
-    let url = environment.apiUrl + ApiConstants.controllers[controllerName].basePath + ApiConstants.operations.update;
-    return this.http.put(url,data);
+  post(path:string, data:any, withLoader:boolean=false){
+    let url = environment.apiUrl + path;
+    return this.withLoaderHandling(withLoader,this.http.post(url,data,{headers:this.getHeaders()} ))
   }
-  delete(controllerName:ControllerNames,id:number){
-    let url = environment.apiUrl + ApiConstants.controllers[controllerName].basePath + ApiConstants.operations.delete + '/' + id;
-    return this.http.delete(url);
+  update(path:string,data:any,withLoader:boolean=false){
+    let url = environment.apiUrl +path;
+    return this.withLoaderHandling(withLoader, this.http.put(url,data,{headers:this.getHeaders()}));
   }
-  customGet(controllerName:ControllerNames,customEndpoint:string){
-    let url = environment.apiUrl + ApiConstants.controllers[controllerName].basePath + ApiConstants.controllers[controllerName]+customEndpoint;
-    return this.http.get(url);
-  }
-  customPost(controllerName:ControllerNames,customEndpoint:string,data:any){
-    let url = environment.apiUrl + ApiConstants.controllers[controllerName].basePath + ApiConstants.controllers[controllerName]+customEndpoint;
-    return this.http.post(url,data);
-  }
-  customPut(controllerName:ControllerNames,customEndpoint:string,data:any){
-    let url = environment.apiUrl + ApiConstants.controllers[controllerName].basePath + ApiConstants.controllers[controllerName]+customEndpoint;
-    return this.http.put(url,data);
+  delete(path:string,id:number,withLoader:boolean=false){
+    let url = environment.apiUrl +path;
+    return this.withLoaderHandling(withLoader,this.http.delete(url,{headers:this.getHeaders()}));
   }
 }

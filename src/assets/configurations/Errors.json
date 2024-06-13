@@ -1,0 +1,10 @@
+{
+  "InvalidCredentials": {
+    "ErrorCode": "ERR_INVALID_CREDENTIALS",
+    "ErrorMessage": "The username or password you entered is incorrect. Please try again."
+  },
+  "GenericError": {
+    "ErrorCode": "ERR_GENERIC",
+    "ErrorMessage": "Requested action could not be completed. Please try again later."
+  }
+}

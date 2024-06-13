@@ -1,3 +1,5 @@
+
+
 export const environment = {
-  apiUrl: 'http://localhost:37434/ks-webpai/api',
+  apiUrl: 'https://localhost:7254/api',
 }
